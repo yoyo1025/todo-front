@@ -1,4 +1,5 @@
 import { auth } from "@/auth"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -40,16 +41,15 @@ export default async function Todo() {
           <div className="mx-2 text-base">{session.user?.name}</div>
         </div>
       </Badge>
-
-      {/* タスク一覧の表示 */}
       <div className="mt-4 space-y-2">
         {tasks.map((task) => (
-          <div key={task.id} className="border p-2 rounded">
-            <h2 className="font-bold">{task.title}</h2>
-            <p>{task.detail}</p>
-            <p>Status: {task.status}</p>
-          </div>
-        ))}
+          <Accordion type="single" collapsible key={task.id}>
+            <AccordionItem value="item-1">
+              <AccordionTrigger>{task.title}</AccordionTrigger>
+              <AccordionContent>{task.detail}</AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        ) )}
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
