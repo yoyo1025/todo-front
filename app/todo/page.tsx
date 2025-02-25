@@ -42,7 +42,9 @@ export default async function Todo() {
         </div>
       </Badge>
       <div className="mt-4 space-y-2 w-4/5 mx-auto">
-        {tasks.map((task) => (
+        {tasks
+          .filter((task) => task.status === 0 || task.status === 1)
+          .map((task) => (
           <Accordion type="single" collapsible key={task.id} className="cursor-pointer hover:bg-blue-50">
             <AccordionItem value="item-1">
               <AccordionTrigger className="text-lg">{task.title}</AccordionTrigger>
