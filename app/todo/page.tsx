@@ -41,11 +41,11 @@ export default async function Todo() {
           <div className="mx-2 text-base">{session.user?.name}</div>
         </div>
       </Badge>
-      <div className="mt-4 space-y-2">
+      <div className="mt-4 space-y-2 w-4/5 mx-auto">
         {tasks.map((task) => (
-          <Accordion type="single" collapsible key={task.id}>
+          <Accordion type="single" collapsible key={task.id} className="cursor-pointer hover:bg-blue-50">
             <AccordionItem value="item-1">
-              <AccordionTrigger>{task.title}</AccordionTrigger>
+              <AccordionTrigger className="text-lg">{task.title}</AccordionTrigger>
               <AccordionContent>{task.detail}</AccordionContent>
             </AccordionItem>
           </Accordion>
