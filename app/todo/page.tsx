@@ -15,6 +15,7 @@ type Task = {
 
 import TodoList from "./TodoList"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import CreateTaskForm from "./CreateTaskForm"
 
 export default async function TodoPage() {
   const session = await auth()
@@ -65,6 +66,8 @@ export default async function TodoPage() {
                   Enter the details of your new task below.
                 </DialogDescription>
               </DialogHeader>
+              {/* ここにフォームコンポーネントを表示 */}
+              <CreateTaskForm />
             </DialogContent>
           </Dialog>
         </DropdownMenuContent>
