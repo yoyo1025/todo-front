@@ -14,6 +14,7 @@ type Task = {
 }
 
 import TodoList from "./TodoList"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 export default async function TodoPage() {
   const session = await auth()
@@ -46,13 +47,26 @@ export default async function TodoPage() {
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="fixed z-50 bottom-10 right-10 py-5 px-2 w-12 h-12 text-4xl border-2 bg-blue-400 rounded-full cursor-pointer hover:bg-blue-500 md: bottom-5 right-5">
+          <Button className="fixed z-50 bottom-10 right-10 flex items-center justify-center w-12 h-12 text-4xl border-2 bg-blue-400 rounded-full cursor-pointer hover:bg-blue-500 md:bottom-5 right-5">
             +
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent side="top" align="center" className="mb-2">
-          <DropdownMenuItem>Create Task</DropdownMenuItem>
-          <DropdownMenuItem>Edit Task</DropdownMenuItem>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="ghost" className="w-full text-left px-2 py-1">
+                Create Task
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Create a New Task</DialogTitle>
+                <DialogDescription>
+                  Enter the details of your new task below.
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
         </DropdownMenuContent>
       </DropdownMenu>
     </>
