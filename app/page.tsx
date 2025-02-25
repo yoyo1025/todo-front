@@ -1,8 +1,8 @@
+import { signIn } from "@/auth"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -19,10 +19,18 @@ export default function Home() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="flex justify-center my-5">Welcome Todo!</DialogTitle>
-            <Button className="py-2 px-4 bg-while rounded-2xl text-black font-black  hover:bg-sky-50">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg" className="w-5 h-5"/>
-              Googleでログイン
-            </Button>
+            <form
+              action={async () => {
+                "use server"
+                await signIn("github", { callbackUrl: "/todo" })
+              }}
+              className="flex justify-center"
+            >
+              <Button className="py-2 px-4 bg-while rounded-2xl text-black font-black  hover:bg-sky-50">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" className="w-5 h-5"/>
+                GitHubでログイン
+              </Button>
+            </form>
           </DialogHeader>
         </DialogContent>
       </Dialog>
