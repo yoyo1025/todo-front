@@ -47,7 +47,12 @@ export default async function Todo() {
           .map((task) => (
           <Accordion type="single" collapsible key={task.id} className="cursor-pointer hover:bg-blue-50">
             <AccordionItem value="item-1">
-              <AccordionTrigger className="text-lg">{task.title}</AccordionTrigger>
+              <AccordionTrigger className="text-lg">
+                <div className="w-full flex justify-between">
+                  <div>{task.title}</div>
+                  <img src="delete.svg" className="w-5 h-5 mr-6"/>
+                </div>
+              </AccordionTrigger>
               <AccordionContent>{task.detail}</AccordionContent>
             </AccordionItem>
           </Accordion>
