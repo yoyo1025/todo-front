@@ -22,7 +22,7 @@ export default function Home() {
             <form
               action={async () => {
                 "use server"
-                await signIn("github", { callbackUrl: "/todo" })
+                await signIn("github", { redirectTo: "/todo" })
               }}
               className="flex justify-center"
             >
