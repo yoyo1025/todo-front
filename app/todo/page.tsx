@@ -22,6 +22,8 @@ export default async function TodoPage() {
   if (!session) {
     redirect("/")
   }
+  console.log(session.accessToken);
+  
 
   const userId = 1
   const res = await fetch(`http://localhost:30000/task/${userId}`, {
@@ -41,6 +43,7 @@ export default async function TodoPage() {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <div className="mx-2 text-base">{session.user?.name}</div>
+          <div className="mx-2 text-base">{session.accessToken}</div>
         </div>
       </Badge>
 

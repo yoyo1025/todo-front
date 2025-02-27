@@ -7,6 +7,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async redirect({ baseUrl }) {
       return `${baseUrl}/todo`
     },
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token as string
+      }
+      return token
+    },
+    async session({ session, token }) {
+      session.accessToken = token.accessToken as string
+      return session
+    }
   },
 })
 
