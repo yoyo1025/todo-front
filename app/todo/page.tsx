@@ -23,9 +23,23 @@ export default async function TodoPage() {
     redirect("/")
   }
   console.log(session.accessToken);
+
+  console.log("/api/auth/githubにリクエスト送信");
+  const userInfo = await fetch("http://localhost:30000/api/auth/github", {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${session?.accessToken}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await userInfo.json()
+  console.log("レスポンスデータ");
+  
+  console.log(data);
   
 
-  const userId = 1
+  const userId = data.userId;
   const res = await fetch(`http://localhost:30000/task/${userId}`, {
     cache: "no-store",
   })
@@ -44,6 +58,7 @@ export default async function TodoPage() {
           </Avatar>
           <div className="mx-2 text-base">{session.user?.name}</div>
           <div className="mx-2 text-base">{session.accessToken}</div>
+          <div className="mx-2 text-base">{session.user?.id}</div>
         </div>
       </Badge>
 

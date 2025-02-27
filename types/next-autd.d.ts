@@ -2,9 +2,16 @@ import NextAuth, { type DefaultSession } from 'next-auth';
 
 declare module 'next-auth' {
   interface Session {
-    accessToken: string
+    accessToken: string;
+    githubId: string;
+    user: {
+      name: string;
+      image: string;
+      id: number | string;
+    }
   }
   interface Token {
-    accessToken: string
+    accessToken: string;
+    userId: string;
   }
 }
