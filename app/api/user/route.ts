@@ -1,40 +1,40 @@
-// import { auth } from "@/auth";
-// import { NextResponse } from "next/server";
-// import { getToken } from "next-auth/jwt";
+import { auth } from "@/auth"
+import { NextRequest, NextResponse } from "next/server"
 
-// export async function GET(req: Request) {
-//   console.log("API Route /api/user が呼ばれました");
+export async function GET() {
+  try {
+    // リクエストの body から accessToken を受け取る
+    const session = await auth();
 
+    console.log("/api/auth/userにおけるsession");
+    console.log(session);
 
-//   // auth.tsのJWTから直接token.accessTokenを取得
-//   const token = await getToken({ req, secret: process.env.AUTH_SECRET })
-
-//   console.log("取得したJWT:", token);
-
-//   const session = await auth();
-//   console.log(session?.accessToken);
-  
-//   if (!session?.accessToken) {
-//     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-//   }
-
-//   console.log("Goへリクエスト送信");
-  
-//   // バックエンドから userId を取得
-//   const res = await fetch("http://localhost:30000/api/auth/github", {
-//     method: "GET",
-//     headers: {
-//       "Authorization": `Bearer ${session?.accessToken}`,
-//       "Content-Type": "application/json",
-//     },
-//   });
-
-//   if (!res.ok) {
-//     console.log("失敗した");
+    console.log("アクセストークン");
+    console.log(session?.accessToken);
     
-//     return NextResponse.json({ error: "Failed to fetch userId" }, { status: res.status });
-//   }
 
-//   const data = await res.json();
-//   return NextResponse.json({ userId: data.user_id });
-// }
+    // 外部 API にリクエストする
+    const userInfo = await fetch("http://localhost:30000/api/auth/github", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${session?.accessToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+
+    if (!userInfo.ok) {
+      throw new Error("Failed to fetch user info from GitHub API")
+    }
+
+    // JSON をパース
+    const data = await userInfo.json()
+    // レスポンスとして返す
+    return NextResponse.json(data)
+  } catch (error: any) {
+    console.error(error)
+    return new NextResponse(
+      JSON.stringify({ error: error.message || "Unknown error" }),
+      { status: 500 },
+    )
+  }
+}

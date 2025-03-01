@@ -22,23 +22,26 @@ export default async function TodoPage() {
   if (!session) {
     redirect("/")
   }
-  console.log(session.accessToken);
-
-  console.log("/api/auth/githubにリクエスト送信");
+  
   const userInfo = await fetch("http://localhost:30000/api/auth/github", {
-    method: "GET",
+    method: "POST",
     headers: {
-      "Authorization": `Bearer ${session?.accessToken}`,
+      Authorization: `Bearer ${session?.accessToken}`,
       "Content-Type": "application/json",
     },
-  });
+    body: JSON.stringify({
+      name: session.user.name,
+      email: session.user.email
+    })
+  })
 
+  if (!userInfo.ok) {
+    throw new Error("Failed to fetch user info from GitHub API")
+  }
+
+  // JSON をパース
   const data = await userInfo.json()
-  console.log("レスポンスデータ");
   
-  console.log(data);
-  
-
   const userId = data.userId;
   const res = await fetch(`http://localhost:30000/task/${userId}`, {
     cache: "no-store",
@@ -57,8 +60,8 @@ export default async function TodoPage() {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <div className="mx-2 text-base">{session.user?.name}</div>
-          <div className="mx-2 text-base">{session.accessToken}</div>
-          <div className="mx-2 text-base">{session.user?.id}</div>
+          {/* <div className="mx-2 text-base">{session.accessToken}</div>
+          <div className="mx-2 text-base">{session.user?.id}</div> */}
         </div>
       </Badge>
 
