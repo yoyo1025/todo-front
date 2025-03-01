@@ -12,7 +12,7 @@
 //     })
 //   };
 
-//   const res = await fetch(`http://localhost:30000/task/${session.user?.id}`, {
+//   const res = await fetch(`host:30000/task/${session.user?.id}`, {
 //     method: "GET",
 //     headers: {
 //       "Authorization": `Bearer ${session.accessToken}`,

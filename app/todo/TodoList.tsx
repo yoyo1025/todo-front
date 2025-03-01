@@ -18,7 +18,7 @@ export default function TodoList({ tasks }: { tasks: Task[] }) {
     const userId = task.user_id
     const taskId = task.id
 
-    const response = await fetch(`http://localhost:30000/task/${userId}/${taskId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_RASPBERRYPI_URL}/task/${userId}/${taskId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -14,7 +14,7 @@ export async function GET() {
     
 
     // 外部 API にリクエストする
-    const userInfo = await fetch("http://localhost:30000/api/auth/github", {
+    const userInfo = await fetch(`${process.env.NEXT_PUBLIC_RASPBERRYPI_URL}/api/auth/github`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${session?.accessToken}`,

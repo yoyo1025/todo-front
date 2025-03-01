@@ -17,7 +17,7 @@ export default function CreateTaskForm({userId}: props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const response = await fetch(`http://localhost:30000/task/${userId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_RASPBERRYPI_URL}/task/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

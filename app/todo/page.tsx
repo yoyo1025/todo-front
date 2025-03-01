@@ -23,16 +23,12 @@ export default async function TodoPage() {
     redirect("/")
   }
   
-  const userInfo = await fetch("http://localhost:30000/api/auth/github", {
+  const userInfo = await fetch(`${process.env.NEXT_PUBLIC_RASPBERRYPI_URL}/api/auth/github`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${session?.accessToken}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      name: session.user.name,
-      email: session.user.email
-    })
   })
 
   if (!userInfo.ok) {
@@ -43,7 +39,7 @@ export default async function TodoPage() {
   const data = await userInfo.json()
   
   const userId = data.id;
-  const res = await fetch(`http://localhost:30000/task/${userId}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_RASPBERRYPI_URL}/task/${userId}`, {
     cache: "no-store",
   })
   if (!res.ok) {
