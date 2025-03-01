@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import Image from "next/image"
 
 
 export default function Home() {
@@ -27,7 +28,7 @@ export default function Home() {
               className="flex justify-center"
             >
               <Button className="py-2 px-4 bg-while rounded-2xl text-black font-black  hover:bg-sky-50">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" className="w-5 h-5"/>
+                <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="github-icon" className="w-5 h-5"/>
                 GitHubでログイン
               </Button>
             </form>

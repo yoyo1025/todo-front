@@ -1,6 +1,7 @@
 "use client"
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import Image from "next/image"
 import { useState } from "react"
 
 type Task = {
@@ -52,8 +53,9 @@ export default function TodoList({ tasks }: { tasks: Task[] }) {
             <AccordionTrigger className="text-lg">
               <div className="w-full flex justify-between items-center">
                 <div>{task.title}</div>
-                <img
+                <Image
                   src="delete.svg"
+                  alt="Delete"
                   className="w-5 h-5 mr-6 cursor-pointer hover:bg-red-300"
                   onClick={(e) => {
                     e.stopPropagation() // Accordion の展開を防ぐ
