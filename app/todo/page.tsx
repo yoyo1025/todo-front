@@ -2,8 +2,12 @@ import { auth } from "@/auth"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { redirect } from "next/navigation"
+import TodoList from "./TodoList"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import CreateTaskForm from "./CreateTaskForm"
+
 
 type Task = {
   id: number
@@ -12,10 +16,6 @@ type Task = {
   detail: string
   status: number
 }
-
-import TodoList from "./TodoList"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import CreateTaskForm from "./CreateTaskForm"
 
 export default async function TodoPage() {
   const session = await auth()
@@ -42,7 +42,7 @@ export default async function TodoPage() {
   // JSON をパース
   const data = await userInfo.json()
   
-  const userId = data.userId;
+  const userId = data.id;
   const res = await fetch(`http://localhost:30000/task/${userId}`, {
     cache: "no-store",
   })
@@ -60,8 +60,6 @@ export default async function TodoPage() {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <div className="mx-2 text-base">{session.user?.name}</div>
-          {/* <div className="mx-2 text-base">{session.accessToken}</div>
-          <div className="mx-2 text-base">{session.user?.id}</div> */}
         </div>
       </Badge>
 
@@ -87,8 +85,7 @@ export default async function TodoPage() {
                   Enter the details of your new task below.
                 </DialogDescription>
               </DialogHeader>
-              {/* ここにフォームコンポーネントを表示 */}
-              <CreateTaskForm />
+              <CreateTaskForm userId={userId}/>
             </DialogContent>
           </Dialog>
         </DropdownMenuContent>

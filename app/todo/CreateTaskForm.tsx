@@ -3,7 +3,11 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
-export default function CreateTaskForm() {
+interface props {
+  userId: number
+}
+
+export default function CreateTaskForm({userId}: props) {
   const [title, setTitle] = useState("")
   const [detail, setDetail] = useState("")
   const [status, setStatus] = useState(0)
@@ -13,8 +17,6 @@ export default function CreateTaskForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const userId = 1
-
     const response = await fetch(`http://localhost:30000/task/${userId}`, {
       method: "POST",
       headers: {
@@ -23,7 +25,7 @@ export default function CreateTaskForm() {
       body: JSON.stringify({
         title,
         detail,
-        status, // ここでは 0 or 1 など指定
+        status,
       }),
     })
 
