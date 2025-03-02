@@ -23,9 +23,9 @@ export default function CreateTaskForm({userId}: props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title,
-        detail,
-        status,
+        title: title,
+        detail: detail,
+        status: status,
       }),
     })
 
